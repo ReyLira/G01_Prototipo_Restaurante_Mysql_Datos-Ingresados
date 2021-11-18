@@ -6,9 +6,9 @@ USE Restaurante_Prototipo;
 /* Creando las tablas */
 CREATE table Ubigeo(
 	Cod_Ubigeo INT AUTO_INCREMENT,
-	Departamento VARCHAR(50) NOT NULL,
-	Provincia VARCHAR(50) NOT NULL,
-    Distrito VARCHAR(50) NOT NULL,
+	Departamento VARCHAR(70) NOT NULL,
+	Provincia VARCHAR(70) NOT NULL,
+    Distrito VARCHAR(70) NOT NULL,
 	PRIMARY KEY (Cod_Ubigeo)
 );
 
@@ -30,24 +30,25 @@ CREATE table Cliente(
 	Id_Cliente INT AUTO_INCREMENT,
     Cod_Ubigeo INT,
 	Nombre VARCHAR(30),
-	Ap_Paterno VARCHAR(30),
-    Ap_Materno VARCHAR(30),
+	Ap_Paterno VARCHAR(40),
+    Ap_Materno VARCHAR(40),
     Telefono char(9),
+    Correo VARCHAR(50),
 	PRIMARY KEY (Id_Cliente),
 	foreign key (Cod_Ubigeo) references Ubigeo(Cod_Ubigeo)
 );
 
-INSERT INTO Cliente (Id_Cliente  ,  Cod_Ubigeo , Nombre , Ap_Paterno,Ap_Materno,Telefono)
-VALUES ('1', '1' , 'Abel' , 'Mamani','Huascar','989008703'),
- ('2', '2' , 'Jhanpool' , 'Pancrasio','Condori','923434656'),
- ('3', '3' , 'Rey' , 'Quispe','Lara','934452234'),
- ('4', '4' , 'Yakanora' , 'Asuncion','Vilchez','978457347'),
- ('5', '5' , 'Cecilia' , 'Caceres','Flores','923536234'),
- ('6', '6' , 'Esteban' , 'Rigoberto','Perez','975637671'),
- ('7', '7' , 'Naomi' , 'Bautista','Paucar','964267483'),
- ('8', '8' , 'Jeremias' , 'Pantano','Vergara','953625367'),
- ('9', '9' , 'Anacleta' , 'Hurtado','Levano','964836583'),
- ('10', '10' , 'Pedro' , 'Castle','Huamanripa','964836432');
+INSERT INTO Cliente (Id_Cliente  ,  Cod_Ubigeo , Nombre , Ap_Paterno,Ap_Materno,Telefono,Correo)
+VALUES ('1', '1' , 'Abel' , 'Mamani','Huascar','989008703','mamani@gmail.com'),
+ ('2', '2' , 'Jhanpool' , 'Pancrasio','Condori','923434656','condori@gmail.com'),
+ ('3', '3' , 'Rey' , 'Quispe','Lara','934452234','Rqquispe@gmail.com'),
+ ('4', '4' , 'Yakanora' , 'Asuncion','Vilchez','978457347','yakanora@gmail.com'),
+ ('5', '5' , 'Cecilia' , 'Caceres','Flores','923536234','caceres@gmail.com'),
+ ('6', '6' , 'Esteban' , 'Rigoberto','Perez','975637671','RigoEs@gmail.com'),
+ ('7', '7' , 'Naomi' , 'Bautista','Paucar','964267483','Bnaomi@gmail.com'),
+ ('8', '8' , 'Jeremias' , 'Pantano','Vergara','953625367','jpantano@gmail.com'),
+ ('9', '9' , 'Anacleta' , 'Hurtado','Levano','964836583','Hurtado@gmail.com'),
+ ('10', '10' , 'Pedro' , 'Castle','Huamanripa','964836432','Pedro@gmail.com');
 
 
 CREATE table Empleado(
@@ -58,7 +59,7 @@ CREATE table Empleado(
 	Ap_Paterno VARCHAR(30),
     Ap_Materno VARCHAR(30),
     Telefono char(9),
-    Horario VARCHAR(10),
+    Horario varchar(10),
 	PRIMARY KEY (Id_Empleado),
     foreign key (Cod_Ubigeo) references Ubigeo(Cod_Ubigeo),
     foreign key (Id_Cliente) references Cliente(Id_Cliente)
@@ -80,7 +81,6 @@ CREATE table Pedido(
 	Id_Pedido INT AUTO_INCREMENT,
     Id_Cliente 	INT,
 	Id_Empleado INT,
-    Precio float,
 	Nombre VARCHAR(30),
     Cantidad int,
 	PRIMARY KEY (Id_Pedido),
@@ -88,17 +88,17 @@ CREATE table Pedido(
     foreign key (Id_Empleado) references Empleado(Id_Empleado)
 );
 
-INSERT INTO Pedido (Id_Pedido , Id_Cliente , Id_Empleado, Precio,Nombre,Cantidad)
-VALUES ('1', '1' , '1' , '15.00','PedidoLocal','1'),
-('2', '2' , '2' , '50.00','PedidoDelivery','2'),
-('3', '3' , '3' , '120.00','PedidoLocal','3'),
- ('4', '4' , '4' , '30.00','PedidoLocal','1'),
- ('5', '5' , '5' , '45.00','PedidoDelivery','4'),
- ('6', '6' , '6' , '60.00','PedidoLocal','2'),
- ('7', '7' , '7' , '23.00','PedidoDelivery','1'),
- ('8', '8' , '8' , '12.00','PedidoLocal','5'),
- ('9', '9' , '9' , '80.00','PedidoLocal','1'),
- ('10', '10' , '10' , '65.00','PedidoDelivery','2');
+INSERT INTO Pedido (Id_Pedido , Id_Cliente , Id_Empleado,Nombre,Cantidad)
+VALUES ('1', '1' , '1' , 'PedidoLocal','1'),
+('2', '2' , '2' , 'PedidoDelivery','2'),
+('3', '3' , '3' , 'PedidoLocal','3'),
+ ('4', '4' , '4' , 'PedidoLocal','1'),
+ ('5', '5' , '5' , 'PedidoDelivery','4'),
+ ('6', '6' , '6' , 'PedidoLocal','2'),
+ ('7', '7' , '7' , 'PedidoDelivery','1'),
+ ('8', '8' , '8' , 'PedidoLocal','5'),
+ ('9', '9' , '9' , 'PedidoLocal','1'),
+ ('10', '10' , '10' ,'PedidoDelivery','2');
 
 CREATE table Venta(
 	Codigo_Venta INT AUTO_INCREMENT,
@@ -123,10 +123,10 @@ VALUES ('1', '1' , '02/07/21' , '15'),
 
 CREATE table Restaurante(
 	Id_RUC INT AUTO_INCREMENT,
-	Nombre VARCHAR (50),
-    Descripcion VARCHAR (90),
+	Nombre VARCHAR (40),
+    Descripcion VARCHAR (40),
     Telefono char(9),
-    Correo VARCHAR(30),
+    Correo VARCHAR(60),
 	PRIMARY KEY (Id_RUC)
 );
 INSERT INTO Restaurante (Id_RUC ,Nombre,Descripcion,Telefono,Correo)
@@ -144,7 +144,7 @@ VALUES ('1', 'Campitos' , 'La comida que te gusta Aqui' , '978583756','campito@g
 CREATE table Menu(
 	Codigo_Menu INT AUTO_INCREMENT,
     Id_RUC INT,
-	Nombre VARCHAR (50),
+	Nombre VARCHAR (40),
 	PRIMARY KEY (Codigo_Menu),
     foreign key (Id_Ruc) references Restaurante(Id_Ruc)
 );
@@ -188,23 +188,24 @@ CREATE table Venta_Detalle(
     Codigo_Venta INT,
     Codigo_Producto int,
     Cantidad int,
-    Precio int,
+    Precio float,
+    total float,
 	PRIMARY KEY (Codigo_VentaDetalle),
     foreign key (Codigo_Venta) references Venta(Codigo_Venta),
     foreign key (Codigo_Producto) references Producto(Codigo_Producto)
 );
 
-INSERT INTO Venta_Detalle (Codigo_VentaDetalle , Codigo_Venta , Codigo_Producto, Cantidad,Precio)
-VALUES ('1', '1' , '1' , '1','30.00'),
-('2', '2' , '2' , '2','100.00'),
-('3', '3' , '3' , '2','240.00'),
-('4', '4' , '4' , '3','45.00'),
-('5', '5' , '5' , '1','45.00'),
-('6', '6' , '6' , '1','60.00'),
-('7', '7' , '7' , '2','46.00'),
-('8', '8' , '8' , '4','240.00'),
-('9', '9' , '9' , '2','160.00'),
-('10', '10' , '10' , '1','65.00');
+INSERT INTO Venta_Detalle (Codigo_VentaDetalle , Codigo_Venta , Codigo_Producto, Cantidad,Precio,total)
+VALUES ('1', '1' , '1' , '1','30.00','30.00'),
+('2', '2' , '2' , '2','100.00','200.00'),
+('3', '3' , '3' , '2','240.00','480.00'),
+('4', '4' , '4' , '3','45.00','135.00'),
+('5', '5' , '5' , '1','45.00','45.00'),
+('6', '6' , '6' , '1','60.00','60.00'),
+('7', '7' , '7' , '2','46.00','92.00'),
+('8', '8' , '8' , '4','240.00','960.00'),
+('9', '9' , '9' , '2','160.00','320.00'),
+('10', '10' , '10' , '1','65.00','65.00');
 
 CREATE table Menu_Producto(
 	Codigo_MenuProducto INT AUTO_INCREMENT,
